@@ -14,7 +14,7 @@ int main()
 	bool chemistry = false, history = false, math = false, music = false, art = false, pe = false, it = false, biology = false;
 	bool invalidSubject, additionalSub = true;
 	char subjectChoice, againSub,againEnroll;
-
+	bool enrollAgain = true,invalidAnswer = false;
 	//Loop for another student
 	do {
 		minimumSub = 0;
@@ -254,13 +254,28 @@ int main()
 			cout << "Thank you for enrolling!" << endl;
 		}
 
-		cout << "Would you like to enroll another student?(y/n)";
-		cin >> againEnroll;
-		if (againEnroll == 'n')
-		{
-			break;
-		}
 
+		//Loop condition for invalid answer
+		do {
+			//Enrollment for another student
+			cout << "Would you like to enroll another student?(y/n)";
+			cin >> againEnroll;
+			switch (againEnroll)
+			{
+			case 'y':
+				invalidAnswer = false;
+				break;
+			case'n':
+				enrollAgain = false;
+				invalidAnswer = false;
+			//Displays an error when invalid answer for enrollment again
+			default:
+				cout << "Invalid answer"<<endl;
+				invalidAnswer = true;
+				break;
+			}
+		//Loop condition for invalid answer
+		} while (invalidAnswer);
 		//Manages the student number counter
 		studentNum++;
 		//Allows user to enter another name for a new student
@@ -268,7 +283,7 @@ int main()
 
 		system("cls");
 	//Loop for another student
-	} while (true);
+	} while (enrollAgain);
 
 	return 0;
 }
